@@ -19,6 +19,8 @@ public class TrapConfig : ScriptableObject
     [Header("Joy / Sadness Traps")]
     [SerializeField] public float staggerTimingMin = 0.5f;
     [SerializeField] public float staggerTimingMax = 2.5f;
+    // how long between each tile starting to crack as the wave sweeps across a row/column
+    [SerializeField] public float tileWaveDelay = 0.15f;
 
     [Header("Fear Trap")]
     [SerializeField] public int fearStartDistance = 3;
