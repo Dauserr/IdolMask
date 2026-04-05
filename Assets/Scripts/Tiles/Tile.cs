@@ -30,7 +30,7 @@ public class Tile : MonoBehaviour
 
     // ── Public API ───────────────────────────────────────────────
 
-    /// <summary>Begins cracking animation, then auto-transitions to Destroyed.</summary>
+    /// Begins cracking animation, then auto-transitions to Destroyed.
     public void StartCrack()
     {
         if (_state != TileState.Normal) return;
@@ -38,7 +38,7 @@ public class Tile : MonoBehaviour
         _currentCoroutine = StartCoroutine(CrackRoutine());
     }
 
-    /// <summary>Immediately destroys the tile (skips crack phase).</summary>
+    /// Immediately destroys the tile (skips crack phase).
     public void StartDestroy()
     {
         if (_state == TileState.Destroyed) return;
@@ -46,7 +46,7 @@ public class Tile : MonoBehaviour
         _currentCoroutine = StartCoroutine(DestroyRoutine());
     }
 
-    /// <summary>Respawns tile back to Normal from any non-Normal state.</summary>
+    /// Respawns tile back to Normal from any non-Normal state.
     public void StartRespawn()
     {
         if (_state == TileState.Normal) return;

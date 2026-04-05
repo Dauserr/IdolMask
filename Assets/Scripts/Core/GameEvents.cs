@@ -1,10 +1,8 @@
 using System;
 using UnityEngine;
 
-/// <summary>
 /// Central Observer hub. Systems raise events here; listeners subscribe here.
 /// Unsubscribe in OnDestroy to prevent memory leaks.
-/// </summary>
 public static class GameEvents
 {
     // ── Game Flow ────────────────────────────────────────────────
