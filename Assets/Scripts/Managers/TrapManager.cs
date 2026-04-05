@@ -2,43 +2,47 @@ using UnityEngine;
 
 public class TrapManager : MonoBehaviour
 {
-    [SerializeField] private TrapConfig _config;
+    [SerializeField] private TrapConfig       _config;
     [SerializeField] private PlayerController _player;
 
-    private IdolState _currentState = IdolState.Peaceful;
-    private float _speedMultiplier = 1f;
+    // assign these in Inspector — one MonoBehaviour per trap on a child GameObject
+    [SerializeField] private AngerTrap   _angerTrap;
+    [SerializeField] private JoyTrap     _joyTrap;
+    [SerializeField] private SadnessTrap _sadnessTrap;
 
-    public IdolState CurrentState => _currentState;
+    private IdolState _currentState   = IdolState.Peaceful;
+    private float     _speedMultiplier = 1f;
+
     public float SpeedMultiplier => _speedMultiplier;
 
     private void OnEnable()
     {
-        GameEvents.OnGameStarted += OnGameStarted;
-        GameEvents.OnGameWon += OnGameEnded;
-        GameEvents.OnGameLost += OnGameEnded;
-        GameEvents.OnIdolStateChanged += OnIdolStateChanged;
-        GameEvents.OnTimerTick += OnTimerTick;
+        GameEvents.OnGameStarted       += OnGameStarted;
+        GameEvents.OnGameWon           += OnGameEnded;
+        GameEvents.OnGameLost          += OnGameEnded;
+        GameEvents.OnIdolStateChanged  += OnIdolStateChanged;
+        GameEvents.OnTimerTick         += OnTimerTick;
     }
 
     private void OnDisable()
     {
-        GameEvents.OnGameStarted -= OnGameStarted;
-        GameEvents.OnGameWon -= OnGameEnded;
-        GameEvents.OnGameLost -= OnGameEnded;
-        GameEvents.OnIdolStateChanged -= OnIdolStateChanged;
-        GameEvents.OnTimerTick -= OnTimerTick;
+        GameEvents.OnGameStarted       -= OnGameStarted;
+        GameEvents.OnGameWon           -= OnGameEnded;
+        GameEvents.OnGameLost          -= OnGameEnded;
+        GameEvents.OnIdolStateChanged  -= OnIdolStateChanged;
+        GameEvents.OnTimerTick         -= OnTimerTick;
     }
 
     private void OnGameStarted()
     {
-        _currentState = IdolState.Peaceful;
+        _currentState    = IdolState.Peaceful;
         _speedMultiplier = 1f;
     }
 
     private void OnGameEnded()
     {
         DeactivateCurrentTrap();
-        _currentState = IdolState.Peaceful;
+        _currentState    = IdolState.Peaceful;
         _speedMultiplier = 1f;
     }
 
@@ -47,9 +51,9 @@ public class TrapManager : MonoBehaviour
         _speedMultiplier = CalculateSpeedMultiplier(normalizedTime);
     }
 
+    // traps run at normal speed for most of the game, then accelerate near the end
     private float CalculateSpeedMultiplier(float normalizedTime)
     {
-        // traps stay normal for most of the round, then speed up near the end
         if (normalizedTime > _config.trapSpeedScaleStart)
             return 1f;
 
@@ -66,31 +70,28 @@ public class TrapManager : MonoBehaviour
 
     private void ActivateCurrentTrap()
     {
-        Vector2Int playerGridPosition = _player != null ? _player.GridPosition : Vector2Int.zero;
+        var playerPos = _player != null ? _player.GridPosition : Vector2Int.zero;
 
         switch (_currentState)
         {
             case IdolState.Peaceful:
                 break;
-
             case IdolState.Anger:
-                Debug.Log($"Activate AngerTrap at {playerGridPosition}, speed x{_speedMultiplier:0.00}");
+                _angerTrap?.Activate(playerPos, _config, _speedMultiplier);
                 break;
-
             case IdolState.Joy:
-                Debug.Log($"Activate JoyTrap, speed x{_speedMultiplier:0.00}");
+                _joyTrap?.Activate(_config, _speedMultiplier);
                 break;
-
             case IdolState.Sadness:
-                Debug.Log($"Activate SadnessTrap, speed x{_speedMultiplier:0.00}");
+                _sadnessTrap?.Activate(_config, _speedMultiplier);
                 break;
-
             case IdolState.Fear:
-                Debug.Log($"Activate FearTrap near {playerGridPosition}, speed x{_speedMultiplier:0.00}");
+                // FearTrap added in Batch 6
+                Debug.Log("FearTrap not yet implemented");
                 break;
-
             case IdolState.Shock:
-                Debug.Log($"Activate ShockTrap near {playerGridPosition}, speed x{_speedMultiplier:0.00}");
+                // ShockTrap added in Batch 6
+                Debug.Log("ShockTrap not yet implemented");
                 break;
         }
     }
@@ -100,19 +101,13 @@ public class TrapManager : MonoBehaviour
         switch (_currentState)
         {
             case IdolState.Anger:
-                Debug.Log("Deactivate AngerTrap");
+                _angerTrap?.Deactivate();
                 break;
             case IdolState.Joy:
-                Debug.Log("Deactivate JoyTrap");
+                _joyTrap?.Deactivate();
                 break;
             case IdolState.Sadness:
-                Debug.Log("Deactivate SadnessTrap");
-                break;
-            case IdolState.Fear:
-                Debug.Log("Deactivate FearTrap");
-                break;
-            case IdolState.Shock:
-                Debug.Log("Deactivate ShockTrap");
+                _sadnessTrap?.Deactivate();
                 break;
         }
     }
