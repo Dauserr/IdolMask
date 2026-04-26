@@ -52,7 +52,6 @@ public class TrapManager : MonoBehaviour
         _speedMultiplier = CalculateSpeedMultiplier(normalizedTime);
     }
 
-    // traps run at normal speed for most of the game, then accelerate near the end
     private float CalculateSpeedMultiplier(float normalizedTime)
     {
         if (normalizedTime > _config.trapSpeedScaleStart)
@@ -64,7 +63,13 @@ public class TrapManager : MonoBehaviour
 
     private void OnIdolStateChanged(IdolState newState)
     {
+        // 1. stop old trap logic
         DeactivateCurrentTrap();
+
+        // 2. clean up any tiles the old trap left behind
+        Arena.Instance?.ForceRespawnAll();
+
+        // 3. switch state and start new trap
         _currentState = newState;
         ActivateCurrentTrap();
     }
@@ -75,8 +80,7 @@ public class TrapManager : MonoBehaviour
 
         switch (_currentState)
         {
-            case IdolState.Peaceful:
-                break;
+            case IdolState.Peaceful: break;
             case IdolState.Anger:
                 _angerTrap?.Activate(playerPos, _config, _speedMultiplier);
                 break;
@@ -99,21 +103,11 @@ public class TrapManager : MonoBehaviour
     {
         switch (_currentState)
         {
-            case IdolState.Anger:
-                _angerTrap?.Deactivate();
-                break;
-            case IdolState.Joy:
-                _joyTrap?.Deactivate();
-                break;
-            case IdolState.Sadness:
-                _sadnessTrap?.Deactivate();
-                break;
-            case IdolState.Fear:
-                _fearTrap?.Deactivate();
-                break;
-            case IdolState.Shock:
-                _shockTrap?.Deactivate();
-                break;
+            case IdolState.Anger:   _angerTrap?.Deactivate();   break;
+            case IdolState.Joy:     _joyTrap?.Deactivate();     break;
+            case IdolState.Sadness: _sadnessTrap?.Deactivate(); break;
+            case IdolState.Fear:    _fearTrap?.Deactivate();    break;
+            case IdolState.Shock:   _shockTrap?.Deactivate();   break;
         }
     }
 }

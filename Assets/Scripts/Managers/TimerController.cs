@@ -7,34 +7,34 @@ public class TimerController : MonoBehaviour
     [SerializeField] private TrapConfig _config;
 
     private float _timeRemaining;
+    private float _elapsedTime;
     private bool  _isRunning;
 
-    // 1.0 = full time left, 0.0 = time is up — used by TimerUI and TrapManager
     public float NormalizedTime => _timeRemaining / _config.gameDuration;
     public float TimeRemaining  => _timeRemaining;
+    public float MaxTime        => _config.gameDuration;
+    public float ElapsedTime    => _elapsedTime;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
 
     private void OnEnable()
     {
-        GameEvents.OnGameStarted += StartTimer;
-        GameEvents.OnGameWon     += StopTimer;
-        GameEvents.OnGameLost    += StopTimer;
+        GameEvents.OnGameStarted   += StartTimer;
+        GameEvents.OnGameWon       += StopTimer;
+        GameEvents.OnGameLost      += StopTimer;
+        GameEvents.OnGameRestarted += StopTimer;
     }
 
     private void OnDisable()
     {
-        GameEvents.OnGameStarted -= StartTimer;
-        GameEvents.OnGameWon     -= StopTimer;
-        GameEvents.OnGameLost    -= StopTimer;
+        GameEvents.OnGameStarted   -= StartTimer;
+        GameEvents.OnGameWon       -= StopTimer;
+        GameEvents.OnGameLost      -= StopTimer;
+        GameEvents.OnGameRestarted -= StopTimer;
     }
 
     private void Update()
@@ -42,6 +42,7 @@ public class TimerController : MonoBehaviour
         if (!_isRunning) return;
 
         _timeRemaining -= Time.deltaTime;
+        _elapsedTime   += Time.deltaTime;
 
         if (_timeRemaining <= 0f)
         {
@@ -51,13 +52,13 @@ public class TimerController : MonoBehaviour
             return;
         }
 
-        // broadcast normalised time every frame so UI and TrapManager stay in sync
         GameEvents.TriggerTimerTick(NormalizedTime);
     }
 
     private void StartTimer()
     {
         _timeRemaining = _config.gameDuration;
+        _elapsedTime   = 0f;
         _isRunning     = true;
     }
 

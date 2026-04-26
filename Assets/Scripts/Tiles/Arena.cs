@@ -15,17 +15,32 @@ public class Arena : MonoBehaviour
 
     private Tile[,] _tiles;
 
-    private void Start()
+    public static Arena Instance { get; private set; }
+
+    private void Awake() => Instance = this;
+
+    private void Start() => SpawnTiles();
+
+    private void OnEnable()
     {
-        SpawnTiles();
+        GameEvents.OnGameStarted   += OnGameStarted;
+        GameEvents.OnGameRestarted += OnGameRestarted;
     }
+
+    private void OnDisable()
+    {
+        GameEvents.OnGameStarted   -= OnGameStarted;
+        GameEvents.OnGameRestarted -= OnGameRestarted;
+    }
+
+    private void OnGameStarted()  => ForceRespawnAll();
+    private void OnGameRestarted() => ForceRespawnAll();
 
     private void SpawnTiles()
     {
         _tiles = new Tile[TileGrid.Size, TileGrid.Size];
 
-        // centre the whole grid around Arena's position in the scene
-        float offset = (TileGrid.Size - 1) * _tileSize * 0.5f;
+        float   offset = (TileGrid.Size - 1) * _tileSize * 0.5f;
         Vector3 origin = transform.position - new Vector3(offset, offset, 0f);
 
         for (int row = 0; row < TileGrid.Size; row++)
@@ -45,7 +60,28 @@ public class Arena : MonoBehaviour
         TileGrid.Initialize(_tiles, origin, _tileSize);
     }
 
-    // called by GameManager when player grabs the mask
+    public void ForceRespawnAll()
+    {
+        foreach (var tile in _tiles)
+            if (tile.State != Tile.TileState.Normal)
+                tile.ForceReset();
+    }
+
+    /// <summary>
+    /// Resets the arena for a new run — respawns tiles, shows mask, opens door.
+    /// Pedestal stays down (no Raise animation needed).
+    /// </summary>
+    public void ResetForNewGame()
+    {
+        ForceRespawnAll();
+
+        if (_goldenMask != null)
+            _goldenMask.SetActive(true);
+
+        if (_doorAnimator != null)
+            _doorAnimator.SetTrigger(AnimOpen);
+    }
+
     public void StartGame()
     {
         _goldenMask.SetActive(false);
@@ -53,13 +89,8 @@ public class Arena : MonoBehaviour
         _doorAnimator.SetTrigger(AnimClose);
     }
 
-    // player survived the timer — let them out
-    public void OpenDoor()
-    {
-        _doorAnimator.SetTrigger(AnimOpen);
-    }
+    public void OpenDoor() => _doorAnimator.SetTrigger(AnimOpen);
 
-    // game over — the whole floor collapses
     public void DestroyAllTiles()
     {
         foreach (var tile in _tiles)
