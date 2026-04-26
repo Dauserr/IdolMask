@@ -2,37 +2,38 @@ using UnityEngine;
 
 public class IdolFaceUI : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    [Header("Idol Sprite Renderer")]
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private static readonly int AnimPeaceful = Animator.StringToHash("Peaceful");
-    private static readonly int AnimAnger    = Animator.StringToHash("Anger");
-    private static readonly int AnimJoy      = Animator.StringToHash("Joy");
-    private static readonly int AnimSadness  = Animator.StringToHash("Sadness");
-    private static readonly int AnimFear     = Animator.StringToHash("Fear");
-    private static readonly int AnimShock    = Animator.StringToHash("Shock");
+    [Header("Face Sprites")]
+    [SerializeField] private Sprite _peaceful;
+    [SerializeField] private Sprite _anger;
+    [SerializeField] private Sprite _joy;
+    [SerializeField] private Sprite _sadness;
+    [SerializeField] private Sprite _fear;
+    [SerializeField] private Sprite _shock;
 
-    private void OnEnable()
-    {
-        GameEvents.OnIdolStateChanged += OnIdolStateChanged;
-    }
+    private void OnEnable()  => GameEvents.OnIdolStateChanged += OnIdolStateChanged;
+    private void OnDisable() => GameEvents.OnIdolStateChanged -= OnIdolStateChanged;
 
-    private void OnDisable()
-    {
-        GameEvents.OnIdolStateChanged -= OnIdolStateChanged;
-    }
+    private void Start() => SetFace(_peaceful);
 
     private void OnIdolStateChanged(IdolState newState)
     {
-        if (_animator == null) return;
-
         switch (newState)
         {
-            case IdolState.Peaceful: _animator.SetTrigger(AnimPeaceful); break;
-            case IdolState.Anger:    _animator.SetTrigger(AnimAnger);    break;
-            case IdolState.Joy:      _animator.SetTrigger(AnimJoy);      break;
-            case IdolState.Sadness:  _animator.SetTrigger(AnimSadness);  break;
-            case IdolState.Fear:     _animator.SetTrigger(AnimFear);     break;
-            case IdolState.Shock:    _animator.SetTrigger(AnimShock);    break;
+            case IdolState.Peaceful: SetFace(_peaceful); break;
+            case IdolState.Anger:    SetFace(_anger);    break;
+            case IdolState.Joy:      SetFace(_joy);      break;
+            case IdolState.Sadness:  SetFace(_sadness);  break;
+            case IdolState.Fear:     SetFace(_fear);     break;
+            case IdolState.Shock:    SetFace(_shock);    break;
         }
+    }
+
+    private void SetFace(Sprite sprite)
+    {
+        if (_spriteRenderer == null || sprite == null) return;
+        _spriteRenderer.sprite = sprite;
     }
 }

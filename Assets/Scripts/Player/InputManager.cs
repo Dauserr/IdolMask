@@ -12,25 +12,42 @@ public class InputManager : MonoBehaviour
 
     private Vector2    _touchStartPos;
     private bool       _isSwiping;
-
-    // input buffering — stores the last direction pressed while the player was mid-move
     private Vector2Int _bufferedDirection;
     private bool       _hasBufferedInput;
 
+    // input is always enabled before the game starts (player must walk to the mask)
+    // and disabled only after the game ends
+    private bool _isInputEnabled = true;
+
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         EnhancedTouchSupport.Enable();
     }
 
+    private void OnEnable()
+    {
+        GameEvents.OnGameWon     += DisableInput;
+        GameEvents.OnGameLost    += DisableInput;
+        GameEvents.OnGameStarted   += EnableInput;
+        GameEvents.OnGameRestarted += EnableInput;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnGameWon     -= DisableInput;
+        GameEvents.OnGameLost    -= DisableInput;
+        GameEvents.OnGameStarted   -= EnableInput;
+        GameEvents.OnGameRestarted -= EnableInput;
+    }
+
+    private void EnableInput()  => _isInputEnabled = true;
+    private void DisableInput() => _isInputEnabled = false;
+
     private void Update()
     {
+        if (!_isInputEnabled) return;
         HandleKeyboard();
         HandleTouch();
         FlushBuffer();
@@ -59,11 +76,8 @@ public class InputManager : MonoBehaviour
             else if (touch.phase == UnityEngine.InputSystem.TouchPhase.Ended && _isSwiping)
             {
                 var delta = (Vector2)touch.screenPosition - _touchStartPos;
-
-                // ignore accidental tiny taps
                 if (delta.magnitude >= _config.swipeMinDistance)
                     BufferOrMove(GetSwipeDirection(delta));
-
                 _isSwiping = false;
             }
         }
@@ -71,14 +85,12 @@ public class InputManager : MonoBehaviour
 
     private Vector2Int GetSwipeDirection(Vector2 delta)
     {
-        // whichever axis moved more is the intended direction
         if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
             return delta.x > 0 ? GridDirection.Right : GridDirection.Left;
         else
             return delta.y > 0 ? GridDirection.Up : GridDirection.Down;
     }
 
-    // if the player is mid-move, save the input and fire it the moment they land
     private void BufferOrMove(Vector2Int direction)
     {
         if (_playerController.IsMoving)
@@ -95,13 +107,9 @@ public class InputManager : MonoBehaviour
     private void FlushBuffer()
     {
         if (!_hasBufferedInput || _playerController.IsMoving) return;
-
         _playerController.TryMove(_bufferedDirection);
         _hasBufferedInput = false;
     }
 
-    private void OnDestroy()
-    {
-        EnhancedTouchSupport.Disable();
-    }
+    private void OnDestroy() => EnhancedTouchSupport.Disable();
 }

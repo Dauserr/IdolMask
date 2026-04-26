@@ -106,7 +106,7 @@ public class SadnessTrap : MonoBehaviour
         foreach (var tile in _affectedTiles)
         {
             if (tile != null)
-                tile.StartRespawn();
+                tile.ForceReset();
         }
         _affectedTiles.Clear();
     }

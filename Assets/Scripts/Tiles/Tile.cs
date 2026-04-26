@@ -23,14 +23,10 @@ public class Tile : MonoBehaviour
     public TileState State      => _state;
     public bool      IsWalkable => _state == TileState.Normal || _state == TileState.Cracking;
 
-    public void Initialize(TrapConfig config)
-    {
-        _config = config;
-    }
+    public void Initialize(TrapConfig config) => _config = config;
 
     // ── Public API ───────────────────────────────────────────────
 
-    /// Begins cracking animation, then auto-transitions to Destroyed.
     public void StartCrack()
     {
         if (_state != TileState.Normal) return;
@@ -38,7 +34,6 @@ public class Tile : MonoBehaviour
         _currentCoroutine = StartCoroutine(CrackRoutine());
     }
 
-    /// Immediately destroys the tile (skips crack phase).
     public void StartDestroy()
     {
         if (_state == TileState.Destroyed) return;
@@ -46,12 +41,29 @@ public class Tile : MonoBehaviour
         _currentCoroutine = StartCoroutine(DestroyRoutine());
     }
 
-    /// Respawns tile back to Normal from any non-Normal state.
     public void StartRespawn()
     {
         if (_state == TileState.Normal) return;
         StopCurrentCoroutine();
         _currentCoroutine = StartCoroutine(RespawnRoutine());
+    }
+
+    /// <summary>
+    /// Instantly snaps tile back to Normal — no animation wait.
+    /// Used on trap transitions so broken tiles never bleed into the next trap.
+    /// </summary>
+    public void ForceReset()
+    {
+        StopCurrentCoroutine();
+        _state = TileState.Normal;
+        // ResetTrigger clears any queued triggers so the animator doesn't
+        // fire them on the next frame after Play() resets the state machine.
+        _animator.ResetTrigger(AnimCrack);
+        _animator.ResetTrigger(AnimDestroy);
+        _animator.ResetTrigger(AnimRespawn);
+        // Play() forces an immediate state jump — more reliable than SetTrigger
+        // which relies on a transition existing in the Animator Controller.
+        _animator.Play(AnimNormal, 0, 0f);
     }
 
     // ── Coroutines ───────────────────────────────────────────────
@@ -78,11 +90,9 @@ public class Tile : MonoBehaviour
         _animator.SetTrigger(AnimRespawn);
         yield return new WaitForSeconds(_config.tileRespawnDuration);
         _state = TileState.Normal;
-        _animator.SetTrigger(AnimNormal);
+        _animator.Play(AnimNormal, 0, 0f);
         OnRespawned?.Invoke();
     }
-
-    // ── Helpers ──────────────────────────────────────────────────
 
     private void StopCurrentCoroutine()
     {
@@ -91,8 +101,5 @@ public class Tile : MonoBehaviour
         _currentCoroutine = null;
     }
 
-    private void OnDestroy()
-    {
-        StopCurrentCoroutine();
-    }
+    private void OnDestroy() => StopCurrentCoroutine();
 }

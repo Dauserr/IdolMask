@@ -1,13 +1,13 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TimerUI : MonoBehaviour
 {
-    [SerializeField] private Image _progressBar;  // Image with Fill type set to Horizontal
+    [SerializeField] private TextMeshProUGUI _timerText;
 
     private void OnEnable()
     {
-        GameEvents.OnTimerTick  += OnTimerTick;
+        GameEvents.OnTimerTick   += OnTimerTick;
         GameEvents.OnGameStarted += OnGameStarted;
     }
 
@@ -19,18 +19,34 @@ public class TimerUI : MonoBehaviour
 
     private void OnGameStarted()
     {
-        // reset bar to full when the game starts
-        SetFill(1f);
+        UpdateDisplay(1f);
     }
 
     private void OnTimerTick(float normalizedTime)
     {
-        SetFill(normalizedTime);
+        UpdateDisplay(normalizedTime);
     }
 
-    private void SetFill(float value)
+    private void UpdateDisplay(float normalizedTime)
     {
-        if (_progressBar != null)
-            _progressBar.fillAmount = Mathf.Clamp01(value);
+        if (_timerText == null) return;
+
+        // convert normalized (0-1) back to seconds using TimerController's max time
+        float maxTime = TimerController.Instance != null
+            ? TimerController.Instance.MaxTime
+            : 60f;
+
+        float secondsLeft = normalizedTime * maxTime;
+
+        // format as  0:59  or  1:23
+        int minutes = Mathf.FloorToInt(secondsLeft / 60f);
+        int seconds = Mathf.FloorToInt(secondsLeft % 60f);
+
+        _timerText.text = $"{minutes}:{seconds:D2}";
+
+        // turn red when under 10 seconds
+        _timerText.color = secondsLeft <= 10f
+            ? new Color(0.9f, 0.2f, 0.2f)
+            : Color.white;
     }
 }
