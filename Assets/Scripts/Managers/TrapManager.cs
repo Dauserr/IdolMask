@@ -5,32 +5,33 @@ public class TrapManager : MonoBehaviour
     [SerializeField] private TrapConfig       _config;
     [SerializeField] private PlayerController _player;
 
-    // assign these in Inspector — one MonoBehaviour per trap on a child GameObject
     [SerializeField] private AngerTrap   _angerTrap;
     [SerializeField] private JoyTrap     _joyTrap;
     [SerializeField] private SadnessTrap _sadnessTrap;
+    [SerializeField] private FearTrap    _fearTrap;
+    [SerializeField] private ShockTrap   _shockTrap;
 
-    private IdolState _currentState   = IdolState.Peaceful;
+    private IdolState _currentState    = IdolState.Peaceful;
     private float     _speedMultiplier = 1f;
 
     public float SpeedMultiplier => _speedMultiplier;
 
     private void OnEnable()
     {
-        GameEvents.OnGameStarted       += OnGameStarted;
-        GameEvents.OnGameWon           += OnGameEnded;
-        GameEvents.OnGameLost          += OnGameEnded;
-        GameEvents.OnIdolStateChanged  += OnIdolStateChanged;
-        GameEvents.OnTimerTick         += OnTimerTick;
+        GameEvents.OnGameStarted      += OnGameStarted;
+        GameEvents.OnGameWon          += OnGameEnded;
+        GameEvents.OnGameLost         += OnGameEnded;
+        GameEvents.OnIdolStateChanged += OnIdolStateChanged;
+        GameEvents.OnTimerTick        += OnTimerTick;
     }
 
     private void OnDisable()
     {
-        GameEvents.OnGameStarted       -= OnGameStarted;
-        GameEvents.OnGameWon           -= OnGameEnded;
-        GameEvents.OnGameLost          -= OnGameEnded;
-        GameEvents.OnIdolStateChanged  -= OnIdolStateChanged;
-        GameEvents.OnTimerTick         -= OnTimerTick;
+        GameEvents.OnGameStarted      -= OnGameStarted;
+        GameEvents.OnGameWon          -= OnGameEnded;
+        GameEvents.OnGameLost         -= OnGameEnded;
+        GameEvents.OnIdolStateChanged -= OnIdolStateChanged;
+        GameEvents.OnTimerTick        -= OnTimerTick;
     }
 
     private void OnGameStarted()
@@ -86,12 +87,10 @@ public class TrapManager : MonoBehaviour
                 _sadnessTrap?.Activate(_config, _speedMultiplier);
                 break;
             case IdolState.Fear:
-                // FearTrap added in Batch 6
-                Debug.Log("FearTrap not yet implemented");
+                _fearTrap?.Activate(playerPos, _config, _speedMultiplier);
                 break;
             case IdolState.Shock:
-                // ShockTrap added in Batch 6
-                Debug.Log("ShockTrap not yet implemented");
+                _shockTrap?.Activate(playerPos, _config, _speedMultiplier);
                 break;
         }
     }
@@ -108,6 +107,12 @@ public class TrapManager : MonoBehaviour
                 break;
             case IdolState.Sadness:
                 _sadnessTrap?.Deactivate();
+                break;
+            case IdolState.Fear:
+                _fearTrap?.Deactivate();
+                break;
+            case IdolState.Shock:
+                _shockTrap?.Deactivate();
                 break;
         }
     }
