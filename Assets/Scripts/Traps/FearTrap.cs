@@ -30,6 +30,7 @@ public class FearTrap : MonoBehaviour
         int totalTiles = TileGrid.Size * TileGrid.Size;
         _maxTraceTiles = Mathf.FloorToInt(totalTiles * config.fearMaxTracePercent);
 
+        _currentPlayerPos = playerPos;
         _chaseRoutine = StartCoroutine(ChaseRoutine(playerPos, config, speedMultiplier));
     }
 
@@ -93,7 +94,7 @@ public class FearTrap : MonoBehaviour
         foreach (var tile in _traceTiles)
         {
             if (tile != null)
-                tile.StartRespawn();
+                tile.ForceReset();
         }
         _traceTiles.Clear();
     }

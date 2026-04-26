@@ -12,33 +12,36 @@ public class HeartSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         _currentHearts = _maxHearts;
     }
 
     private void OnEnable()
     {
-        GameEvents.OnPlayerFell += LoseHeart;
+        GameEvents.OnPlayerFell    += LoseHeart;
+        GameEvents.OnGameStarted   += ResetHearts;
+        GameEvents.OnGameRestarted += ResetHearts;
     }
 
     private void OnDisable()
     {
-        GameEvents.OnPlayerFell -= LoseHeart;
+        GameEvents.OnPlayerFell    -= LoseHeart;
+        GameEvents.OnGameStarted   -= ResetHearts;
+        GameEvents.OnGameRestarted -= ResetHearts;
+    }
+
+    private void ResetHearts()
+    {
+        _currentHearts = _maxHearts;
+        GameEvents.TriggerHeartLost(_currentHearts);
     }
 
     public void LoseHeart()
     {
-        // ignore extra calls after hearts already hit zero
         if (_currentHearts <= 0) return;
-
         _currentHearts--;
         GameEvents.TriggerHeartLost(_currentHearts);
-
         if (_currentHearts <= 0)
             GameEvents.TriggerAllHeartsLost();
     }

@@ -6,52 +6,27 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
-    // key used to store data in PlayerPrefs
     private const string SaveKey = "IdolMask_Records";
 
     private List<RunRecord> _records = new();
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         LoadRecords();
     }
 
-    private void OnEnable()
-    {
-        GameEvents.OnGameLost += OnGameLost;
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.OnGameLost -= OnGameLost;
-    }
-
-    // called automatically when the player loses
-    private void OnGameLost()
-    {
-        float survivalTime = TimerController.Instance != null
-            ? TimerController.Instance.TimeRemaining
-            : 0f;
-
-        SaveRecord(survivalTime);
-    }
-
-    public void SaveRecord(float timeOfDeath)
+    /// <summary>Called by GameManager right before TriggerGameLost so the
+    /// record is always in the list when LoseScreenUI reads it.</summary>
+    public void SaveRecord(float elapsedTime)
     {
         int nextAttempt = _records.Count + 1;
-        _records.Add(new RunRecord(nextAttempt, timeOfDeath));
-
+        _records.Add(new RunRecord(nextAttempt, elapsedTime));
         WriteToPlayerPrefs();
         GameEvents.TriggerRecordSaved();
     }
 
-    // returns all records sorted oldest → newest
     public List<RunRecord> GetAllRecords()
     {
         var sorted = new List<RunRecord>(_records);
@@ -63,43 +38,28 @@ public class SaveManager : MonoBehaviour
     {
         try
         {
-            // wrap the list in a helper because JsonUtility can't serialize a raw List
             var wrapper = new RecordListWrapper { records = _records };
-            string json = JsonUtility.ToJson(wrapper);
-            PlayerPrefs.SetString(SaveKey, json);
+            PlayerPrefs.SetString(SaveKey, JsonUtility.ToJson(wrapper));
             PlayerPrefs.Save();
         }
-        catch (Exception e)
-        {
-            Debug.LogWarning($"SaveManager: failed to save records — {e.Message}");
-        }
+        catch (Exception e) { Debug.LogWarning($"SaveManager: save failed — {e.Message}"); }
     }
 
     private void LoadRecords()
     {
-        if (!PlayerPrefs.HasKey(SaveKey))
-        {
-            _records = new List<RunRecord>();
-            return;
-        }
-
+        if (!PlayerPrefs.HasKey(SaveKey)) { _records = new List<RunRecord>(); return; }
         try
         {
-            string json    = PlayerPrefs.GetString(SaveKey);
-            var    wrapper = JsonUtility.FromJson<RecordListWrapper>(json);
+            var wrapper = JsonUtility.FromJson<RecordListWrapper>(PlayerPrefs.GetString(SaveKey));
             _records = wrapper?.records ?? new List<RunRecord>();
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"SaveManager: failed to load records — {e.Message}");
+            Debug.LogWarning($"SaveManager: load failed — {e.Message}");
             _records = new List<RunRecord>();
         }
     }
 
-    // JsonUtility requires a wrapper class to serialize a List
     [Serializable]
-    private class RecordListWrapper
-    {
-        public List<RunRecord> records = new();
-    }
+    private class RecordListWrapper { public List<RunRecord> records = new(); }
 }
