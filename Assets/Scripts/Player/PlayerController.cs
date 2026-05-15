@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator   _animator;
     [SerializeField] private TrapConfig _config;
+    [SerializeField] private float      _verticalOffset = 0f;
 
     private static readonly int AnimDirX = Animator.StringToHash("DirX");
     private static readonly int AnimDirY = Animator.StringToHash("DirY");
@@ -68,7 +69,8 @@ public class PlayerController : MonoBehaviour
     public void SetStartPosition(Vector2Int startPos)
     {
         _gridPosition      = startPos;
-        transform.position = TileGrid.GridToWorld(_gridPosition);
+        var wp = TileGrid.GridToWorld(_gridPosition);
+        transform.position = new Vector3(wp.x, wp.y + _verticalOffset, wp.z);
         // don't subscribe here — TileGrid may not be initialized yet.
         // subscription happens in OnGameBegan instead.
     }
@@ -105,7 +107,8 @@ public class PlayerController : MonoBehaviour
         _animator.SetTrigger(AnimMove);
 
         var   from    = transform.position;
-        var   to      = TileGrid.GridToWorld(destination);
+        var   toRaw   = TileGrid.GridToWorld(destination);
+        var   to      = new Vector3(toRaw.x, toRaw.y + _verticalOffset, toRaw.z);
         float elapsed = 0f;
 
         while (elapsed < _config.playerMoveSpeed)
@@ -115,7 +118,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        transform.position = to;
+        transform.position = to; // already offset
         _gridPosition      = destination;
         _isMoving          = false;
 
@@ -162,7 +165,8 @@ public class PlayerController : MonoBehaviour
         _animator.SetTrigger(AnimFall);
 
         var   from    = transform.position;
-        var   to      = TileGrid.GridToWorld(holePosition);
+        var   toRaw   = TileGrid.GridToWorld(holePosition);
+        var   to      = new Vector3(toRaw.x, toRaw.y + _verticalOffset, toRaw.z);
         float elapsed = 0f;
 
         while (elapsed < _config.playerMoveSpeed)
@@ -199,7 +203,8 @@ public class PlayerController : MonoBehaviour
                     if (tile != null && tile.State == Tile.TileState.Normal)
                     {
                         _gridPosition      = new Vector2Int(r, c);
-                        transform.position = TileGrid.GridToWorld(_gridPosition);
+                        var wp = TileGrid.GridToWorld(_gridPosition);
+        transform.position = new Vector3(wp.x, wp.y + _verticalOffset, wp.z);
                         SubscribeToStandingTile(tile);
                         GameEvents.TriggerPlayerMoved(_gridPosition);
                         return;
