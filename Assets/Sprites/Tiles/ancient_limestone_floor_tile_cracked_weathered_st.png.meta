@@ -1,0 +1,535 @@
+fileFormatVersion: 2
+guid: 7b0173a5c648ebc45af5ea4a67cbf7f8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7751235160747210966
+    second: ancient_limestone_floor_tile_cracked_weathered_st_0
+  - first:
+      213: -6261384270226294017
+    second: ancient_limestone_floor_tile_cracked_weathered_st_1
+  - first:
+      213: 8158107678013003819
+    second: ancient_limestone_floor_tile_cracked_weathered_st_2
+  - first:
+      213: -4177107247409650776
+    second: ancient_limestone_floor_tile_cracked_weathered_st_3
+  - first:
+      213: 2153917177598592511
+    second: ancient_limestone_floor_tile_cracked_weathered_st_4
+  - first:
+      213: -5266215639631112291
+    second: ancient_limestone_floor_tile_cracked_weathered_st_5
+  - first:
+      213: 6646775799374192273
+    second: ancient_limestone_floor_tile_cracked_weathered_st_6
+  - first:
+      213: 9140958669065231946
+    second: ancient_limestone_floor_tile_cracked_weathered_st_7
+  - first:
+      213: -2065318641580837050
+    second: ancient_limestone_floor_tile_cracked_weathered_st_8
+  - first:
+      213: 6612926129106579181
+    second: ancient_limestone_floor_tile_cracked_weathered_st_9
+  - first:
+      213: -6833116777809817811
+    second: ancient_limestone_floor_tile_cracked_weathered_st_10
+  - first:
+      213: 8888635201762716142
+    second: ancient_limestone_floor_tile_cracked_weathered_st_11
+  - first:
+      213: -1961705342189765853
+    second: ancient_limestone_floor_tile_cracked_weathered_st_12
+  - first:
+      213: -337485502474215073
+    second: ancient_limestone_floor_tile_cracked_weathered_st_13
+  - first:
+      213: 5472147032444261531
+    second: ancient_limestone_floor_tile_cracked_weathered_st_14
+  - first:
+      213: -3530204870817315941
+    second: ancient_limestone_floor_tile_cracked_weathered_st_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27052960b41e6490800000000000000
+      internalID: -7751235160747210966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffa71f23e281b19a0800000000000000
+      internalID: -6261384270226294017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_2
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b281a5ba5bb673170800000000000000
+      internalID: 8158107678013003819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a32079f61fe706c0800000000000000
+      internalID: -4177107247409650776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc8a77ff37a02f45ae858b45695de76
+      internalID: 2153917177598592511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_5
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8cde441f71c9314ab61e5a583f776f8
+      internalID: -5266215639631112291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_6
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c70e721b0c3eb7c4ba848d5ce31d4553
+      internalID: 6646775799374192273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_7
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 752fe5dc960dd084d830224c36291343
+      internalID: 9140958669065231946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5335237128e35cb458473e2c507581d1
+      internalID: -2065318641580837050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_9
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275229fe3910e9741a4675980da2337d
+      internalID: 6612926129106579181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_10
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6abeae7ac1f51bd4983c8a7880a3a001
+      internalID: -6833116777809817811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_11
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6887d8bcf1f4bc74a961bba603055e7b
+      internalID: 8888635201762716142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d17133b1c5c2a248a03076dc4e64ca0
+      internalID: -1961705342189765853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_13
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce5cb9f26b72b154fa0b5a44aec68d96
+      internalID: -337485502474215073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_14
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc936081151e405459cbbaff69520a59
+      internalID: 5472147032444261531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancient_limestone_floor_tile_cracked_weathered_st_15
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc778f6047f586e47bf5b305ac255aa0
+      internalID: -3530204870817315941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2123f9f52c836f44fa71bde3c3c66993
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":1.0,"y":1.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      ancient_limestone_floor_tile_cracked_weathered_st_0: -7751235160747210966
+      ancient_limestone_floor_tile_cracked_weathered_st_1: -6261384270226294017
+      ancient_limestone_floor_tile_cracked_weathered_st_10: -6833116777809817811
+      ancient_limestone_floor_tile_cracked_weathered_st_11: 8888635201762716142
+      ancient_limestone_floor_tile_cracked_weathered_st_12: -1961705342189765853
+      ancient_limestone_floor_tile_cracked_weathered_st_13: -337485502474215073
+      ancient_limestone_floor_tile_cracked_weathered_st_14: 5472147032444261531
+      ancient_limestone_floor_tile_cracked_weathered_st_15: -3530204870817315941
+      ancient_limestone_floor_tile_cracked_weathered_st_2: 8158107678013003819
+      ancient_limestone_floor_tile_cracked_weathered_st_3: -4177107247409650776
+      ancient_limestone_floor_tile_cracked_weathered_st_4: 2153917177598592511
+      ancient_limestone_floor_tile_cracked_weathered_st_5: -5266215639631112291
+      ancient_limestone_floor_tile_cracked_weathered_st_6: 6646775799374192273
+      ancient_limestone_floor_tile_cracked_weathered_st_7: 9140958669065231946
+      ancient_limestone_floor_tile_cracked_weathered_st_8: -2065318641580837050
+      ancient_limestone_floor_tile_cracked_weathered_st_9: 6612926129106579181
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
