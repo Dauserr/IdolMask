@@ -102,10 +102,22 @@ public class PlayerController : MonoBehaviour
     {
         _isMoving = true;
 
-        _animator.SetFloat(AnimDirX, direction.y);
-        _animator.SetFloat(AnimDirY, direction.x);
+        float dirXForAnim = direction.y;
+        float dirYForAnim = direction.x;
+
+        if (direction.y < 0)
+        {
+            dirXForAnim = 1f;
+            dirYForAnim = 0f;
+        }
+
+        _animator.SetFloat(AnimDirX, dirXForAnim);
+        _animator.SetFloat(AnimDirY, dirYForAnim);
         _animator.SetTrigger(AnimMove);
 
+        GetComponent<SpriteRenderer>().flipX = (direction.y < 0);
+
+        
         var   from    = transform.position;
         var   toRaw   = TileGrid.GridToWorld(destination);
         var   to      = new Vector3(toRaw.x, toRaw.y + _verticalOffset, toRaw.z);

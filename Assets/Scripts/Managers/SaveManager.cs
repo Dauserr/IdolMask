@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
-    private const string SaveKey = "IdolMask_Records";
+    private string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
 
     private List<RunRecord> _records = new();
 
@@ -14,16 +15,17 @@ public class SaveManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         LoadRecords();
     }
 
-    /// <summary>Called by GameManager right before TriggerGameLost so the
-    /// record is always in the list when LoseScreenUI reads it.</summary>
+    /// Called by GameManager right before TriggerGameLost so the
+    /// record is always in the list when LoseScreenUI reads it.
     public void SaveRecord(float elapsedTime)
     {
         int nextAttempt = _records.Count + 1;
         _records.Add(new RunRecord(nextAttempt, elapsedTime));
-        WriteToPlayerPrefs();
+        WriteToFile();
         GameEvents.TriggerRecordSaved();
     }
 
@@ -34,24 +36,27 @@ public class SaveManager : MonoBehaviour
         return sorted;
     }
 
-    private void WriteToPlayerPrefs()
+    private void WriteToFile()
     {
         try
         {
             var wrapper = new RecordListWrapper { records = _records };
-            PlayerPrefs.SetString(SaveKey, JsonUtility.ToJson(wrapper));
-            PlayerPrefs.Save();
+            string json = JsonUtility.ToJson(wrapper, true);
+            File.WriteAllText(SavePath, json);
+            Debug.Log($"SaveManager: saved to {SavePath}");
         }
         catch (Exception e) { Debug.LogWarning($"SaveManager: save failed — {e.Message}"); }
     }
 
     private void LoadRecords()
     {
-        if (!PlayerPrefs.HasKey(SaveKey)) { _records = new List<RunRecord>(); return; }
+        if (!File.Exists(SavePath)) { _records = new List<RunRecord>(); return; }
         try
         {
-            var wrapper = JsonUtility.FromJson<RecordListWrapper>(PlayerPrefs.GetString(SaveKey));
+            string json = File.ReadAllText(SavePath);
+            var wrapper = JsonUtility.FromJson<RecordListWrapper>(json);
             _records = wrapper?.records ?? new List<RunRecord>();
+            Debug.Log($"SaveManager: loaded {_records.Count} records from {SavePath}");
         }
         catch (Exception e)
         {
