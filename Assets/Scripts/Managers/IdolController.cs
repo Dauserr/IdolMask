@@ -78,6 +78,7 @@ public class IdolController : MonoBehaviour
         GameEvents.OnGameRestarted    -= ResetToClosedEyes;
         GameEvents.OnIdolDestroyed -= OnDestroyed;
     }
+
     private void OnDestroyed()
     {
         StopStateLoop();
@@ -100,7 +101,7 @@ public class IdolController : MonoBehaviour
         yield return new WaitForSeconds(GetClipLength("ClosedEyes_Destroy"));
 
         GameEvents.TriggerShowWinScreen();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OpenEyes()
@@ -165,7 +166,7 @@ public class IdolController : MonoBehaviour
     private void StopAndPeaceful()
     {
         StopStateLoop();
-        StopTransition();
+        gameObject.SetActive(true);
         SetState(IdolState.Peaceful, true);
     }
 

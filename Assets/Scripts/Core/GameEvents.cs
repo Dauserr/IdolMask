@@ -49,4 +49,5 @@ public static class GameEvents
 
     public static event System.Action OnShowWinScreen;
     public static void TriggerShowWinScreen() => OnShowWinScreen?.Invoke();
+
 }
