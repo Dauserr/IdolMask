@@ -20,6 +20,7 @@ public class IdolController : MonoBehaviour
         { (IdolState.Peaceful, IdolState.Joy),     "Peaceful_ToJoy" },
         { (IdolState.Peaceful, IdolState.Sadness), "Peaceful_ToSadness" },
         { (IdolState.Peaceful, IdolState.Shock),   "Peaceful_ToShock" },
+        { (IdolState.Peaceful, IdolState.Fear), "Peaceful_ToFear" },
         { (IdolState.Anger,    IdolState.Fear),    "Anger_ToFear" },
         { (IdolState.Anger,    IdolState.Joy),     "Anger_ToJoy" },
         { (IdolState.Anger,    IdolState.Shock),   "Anger_ToShock" },
