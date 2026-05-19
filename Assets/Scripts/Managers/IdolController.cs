@@ -10,6 +10,7 @@ public class IdolController : MonoBehaviour
     private IdolState _currentState = IdolState.Peaceful;
     private Coroutine _stateRoutine;
     private Coroutine _transitionRoutine;
+    private bool _destroyed = false;
 
     public IdolState CurrentState => _currentState;
 
@@ -51,36 +52,34 @@ public class IdolController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
-        _animator.SetInteger("FromState", 0);
-        _animator.SetInteger("ToState", 0);
-    }
-
-    private void OnEnable()
-    {
         GameEvents.OnPlayerFirstMoved += OpenEyes;
         GameEvents.OnGameStarted      += StartStateLoop;
         GameEvents.OnGameWon          += StopAndPeaceful;
         GameEvents.OnGameLost         += StopAndPeaceful;
         GameEvents.OnGameRestarted    += ResetToClosedEyes;
-        GameEvents.OnIdolDestroyed += OnDestroyed;
+        GameEvents.OnIdolDestroyed    += OnDestroyed;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameEvents.OnPlayerFirstMoved -= OpenEyes;
         GameEvents.OnGameStarted      -= StartStateLoop;
         GameEvents.OnGameWon          -= StopAndPeaceful;
         GameEvents.OnGameLost         -= StopAndPeaceful;
         GameEvents.OnGameRestarted    -= ResetToClosedEyes;
-        GameEvents.OnIdolDestroyed -= OnDestroyed;
+        GameEvents.OnIdolDestroyed    -= OnDestroyed;
     }
+    
+    private void Start()
+    {
+        _animator.SetInteger("FromState", 0);
+        _animator.SetInteger("ToState", 0);
+    }
+
 
     private void OnDestroyed()
     {
+        if (_destroyed) return;
         StopStateLoop();
         StopTransition();
         _transitionRoutine = StartCoroutine(CloseEyesAndDestroy());
@@ -101,6 +100,7 @@ public class IdolController : MonoBehaviour
         yield return new WaitForSeconds(GetClipLength("ClosedEyes_Destroy"));
 
         GameEvents.TriggerShowWinScreen();
+        Debug.Log("[Idol] Setting inactive NOW");
         gameObject.SetActive(false);
     }
 
@@ -124,8 +124,11 @@ public class IdolController : MonoBehaviour
 
     private void ResetToClosedEyes()
     {
+        _destroyed = false;
         StopStateLoop();
         StopTransition();
+        Debug.Log("[Idol] ResetToClosedEyes — setting active");
+        gameObject.SetActive(true);
         _animator.SetInteger("FromState", 0);
         _animator.SetInteger("ToState", 0);
         _currentState = IdolState.Peaceful;

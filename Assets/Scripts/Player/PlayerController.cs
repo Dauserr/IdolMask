@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     private bool       _isMoving;
     private bool       _isActive = true;   // false after game won/lost
 
-    // the tile the player is currently standing on
     private Tile _standingTile;
 
     public event Action<Vector2Int> OnPlayerMoved;
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
     public Vector2Int GridPosition => _gridPosition;
     public bool       IsMoving     => _isMoving;
 
-    // ── Lifecycle ────────────────────────────────────────────────
 
     private void OnEnable()
     {
@@ -47,7 +45,6 @@ public class PlayerController : MonoBehaviour
     private void OnGameBegan()
     {
         _isActive = true;
-        // subscribe to the tile we're already standing on when the game starts
         SubscribeToStandingTile(TileGrid.GetTile(_gridPosition));
     }
 
@@ -64,18 +61,14 @@ public class PlayerController : MonoBehaviour
         UnsubscribeFromStandingTile();
     }
 
-    // ── Setup ────────────────────────────────────────────────────
 
     public void SetStartPosition(Vector2Int startPos)
     {
         _gridPosition      = startPos;
         var wp = TileGrid.GridToWorld(_gridPosition);
         transform.position = new Vector3(wp.x, wp.y + _verticalOffset, wp.z);
-        // don't subscribe here — TileGrid may not be initialized yet.
-        // subscription happens in OnGameBegan instead.
     }
 
-    // ── Input ────────────────────────────────────────────────────
 
     public void TryMove(Vector2Int direction)
     {
@@ -96,7 +89,6 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(MoveRoutine(destination, direction));
     }
 
-    // ── Movement ─────────────────────────────────────────────────
 
     private IEnumerator MoveRoutine(Vector2Int destination, Vector2Int direction)
     {
@@ -141,7 +133,6 @@ public class PlayerController : MonoBehaviour
         GameEvents.TriggerPlayerMoved(_gridPosition);
     }
 
-    // ── Tile-Under-Player Collapse ────────────────────────────────
 
     private void SubscribeToStandingTile(Tile tile)
     {
@@ -158,18 +149,12 @@ public class PlayerController : MonoBehaviour
         _standingTile = null;
     }
 
-    /// <summary>
-    /// Fires when the tile the player is standing on collapses.
-    /// Triggers a fall in place — the most common source of heart loss.
-    /// </summary>
     private void OnStandingTileDestroyed()
     {
         if (_isMoving || !_isActive) return;
         UnsubscribeFromStandingTile(); // prevent double-trigger
         StartCoroutine(FallRoutine(_gridPosition));
     }
-
-    // ── Fall ─────────────────────────────────────────────────────
 
     private IEnumerator FallRoutine(Vector2Int holePosition)
     {

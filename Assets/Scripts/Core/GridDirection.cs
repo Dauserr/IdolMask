@@ -1,7 +1,6 @@
 using UnityEngine;
 
-// Matches TileGrid convention: x = row (world Y), y = col (world X)
-// Use these instead of Vector2Int.up/right so everything stays consistent
+
 public static class GridDirection
 {
     public static readonly Vector2Int Up    = new( 1,  0);
