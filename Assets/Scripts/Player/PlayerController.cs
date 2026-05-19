@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private bool       _isMoving;
     private bool       _isActive = true;   // false after game won/lost
 
+    private bool _isSuperJumping; // true while super jump arc is playing
+
     private Tile _standingTile;
 
     public event Action<Vector2Int> OnPlayerMoved;
@@ -89,6 +91,39 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(MoveRoutine(destination, direction));
     }
 
+    public void TrySuperJump(Vector2Int direction)
+    {
+        // Block input if already moving, jumping, or game is not active
+        if (_isMoving || _isSuperJumping || !_isActive) return;
+
+        // Calculate destination 3 tiles away in the given direction
+        var destination = _gridPosition + direction * 3;
+
+        // If destination is out of grid bounds, clamp to the furthest valid tile
+        // so jumping toward a wall still does something useful
+        while (!TileGrid.IsInBounds(destination) && destination != _gridPosition)
+        {
+            destination -= direction; // step back one tile at a time until in bounds
+        }
+
+        // If we couldn't move at all (already at edge), cancel the jump
+        if (destination == _gridPosition) return;
+
+        var tile = TileGrid.GetTile(destination);
+        if (tile == null) return;
+
+        // If landing tile is already destroyed (not walkable), player falls into it
+        // — same death behaviour as walking into a destroyed tile normally
+        if (!tile.IsWalkable)
+        {
+            StartCoroutine(FallRoutine(destination)); // fall at destination, not current pos
+            return;
+        }
+
+        // Everything is valid — start the jump
+        StartCoroutine(SuperJumpRoutine(destination, direction));
+    }
+
 
     private IEnumerator MoveRoutine(Vector2Int destination, Vector2Int direction)
     {
@@ -127,6 +162,57 @@ public class PlayerController : MonoBehaviour
         _isMoving          = false;
 
         // track which tile we're on so we detect if it collapses under us
+        SubscribeToStandingTile(TileGrid.GetTile(_gridPosition));
+
+        OnPlayerMoved?.Invoke(_gridPosition);
+        GameEvents.TriggerPlayerMoved(_gridPosition);
+    }
+
+    // Plays the super jump movement arc from current position to destination.
+    // Uses the same animator and movement speed as a normal move.
+    private IEnumerator SuperJumpRoutine(Vector2Int destination, Vector2Int direction)
+    {
+        _isSuperJumping = true;
+        _isMoving = true; // block further input during jump
+
+        // Reuse existing animation direction logic from MoveRoutine
+        float dirXForAnim = direction.y;
+        float dirYForAnim = direction.x;
+
+        if (direction.y < 0)
+        {
+            dirXForAnim = 1f;
+            dirYForAnim = 0f;
+        }
+
+        _animator.SetFloat(AnimDirX, dirXForAnim);
+        _animator.SetFloat(AnimDirY, dirYForAnim);
+        _animator.SetTrigger(AnimMove); // uses same move animation for now
+
+        GetComponent<SpriteRenderer>().flipX = (direction.y < 0);
+
+        // Move from current world position to destination world position
+        // We use a slightly faster speed for the jump to feel snappier (0.6x normal time)
+        // Change this multiplier if the jump feels too fast or too slow
+        var   from        = transform.position;
+        var   toRaw       = TileGrid.GridToWorld(destination);
+        var   to          = new Vector3(toRaw.x, toRaw.y + _verticalOffset, toRaw.z);
+        float jumpSpeed   = _config.playerMoveSpeed * 0.6f; // faster than a normal step
+        float elapsed     = 0f;
+
+        while (elapsed < jumpSpeed)
+        {
+            transform.position = Vector3.Lerp(from, to, elapsed / jumpSpeed);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = to;
+        _gridPosition      = destination;
+        _isMoving          = false;
+        _isSuperJumping    = false;
+
+        // Subscribe to new tile so we detect if it collapses under us after landing
         SubscribeToStandingTile(TileGrid.GetTile(_gridPosition));
 
         OnPlayerMoved?.Invoke(_gridPosition);
