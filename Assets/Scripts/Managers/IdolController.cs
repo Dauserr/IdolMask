@@ -16,20 +16,47 @@ public class IdolController : MonoBehaviour
 
     private static readonly Dictionary<(IdolState, IdolState), string> _clips = new()
     {
+        // From Peaceful
         { (IdolState.Peaceful, IdolState.Anger),   "Peaceful_ToAnger" },
         { (IdolState.Peaceful, IdolState.Joy),     "Peaceful_ToJoy" },
         { (IdolState.Peaceful, IdolState.Sadness), "Peaceful_ToSadness" },
         { (IdolState.Peaceful, IdolState.Shock),   "Peaceful_ToShock" },
-        { (IdolState.Peaceful, IdolState.Fear), "Peaceful_ToFear" },
-        { (IdolState.Anger,    IdolState.Fear),    "Anger_ToFear" },
-        { (IdolState.Anger,    IdolState.Joy),     "Anger_ToJoy" },
-        { (IdolState.Anger,    IdolState.Shock),   "Anger_ToShock" },
-        { (IdolState.Fear,     IdolState.Joy),     "Fear_ToJoy" },
-        { (IdolState.Fear,     IdolState.Sadness), "Fear_ToSadness" },
-        { (IdolState.Fear,     IdolState.Shock),   "Fear_ToShock" },
-        { (IdolState.Joy,      IdolState.Sadness), "Joy_ToSadness" },
-        { (IdolState.Shock,    IdolState.Joy),     "Shock_ToJoy" },
-        { (IdolState.Shock,    IdolState.Sadness), "Shock_ToSadness" },
+        { (IdolState.Peaceful, IdolState.Fear),    "Peaceful_ToFear" },
+
+        // From Anger
+        { (IdolState.Anger, IdolState.Peaceful),   "Anger_ToPeaceful" },
+        { (IdolState.Anger, IdolState.Sadness),    "Anger_ToSadness" },
+        { (IdolState.Anger, IdolState.Fear),       "Anger_ToFear" },
+        { (IdolState.Anger, IdolState.Joy),        "Anger_ToJoy" },
+        { (IdolState.Anger, IdolState.Shock),      "Anger_ToShock" },
+
+        // From Fear
+        { (IdolState.Fear, IdolState.Peaceful),    "Fear_ToPeaceful" },
+        { (IdolState.Fear, IdolState.Anger),       "Fear_ToAnger" },
+        { (IdolState.Fear, IdolState.Joy),         "Fear_ToJoy" },
+        { (IdolState.Fear, IdolState.Sadness),     "Fear_ToSadness" },
+        { (IdolState.Fear, IdolState.Shock),       "Fear_ToShock" },
+
+        // From Joy
+        { (IdolState.Joy, IdolState.Peaceful),     "Joy_ToPeaceful" },
+        { (IdolState.Joy, IdolState.Anger),        "Joy_ToAnger" },
+        { (IdolState.Joy, IdolState.Fear),         "Joy_ToFear" },
+        { (IdolState.Joy, IdolState.Sadness),      "Joy_ToSadness" },
+        { (IdolState.Joy, IdolState.Shock),        "Joy_ToShock" },
+
+        // From Sadness
+        { (IdolState.Sadness, IdolState.Peaceful), "Sadness_ToPeaceful" },
+        { (IdolState.Sadness, IdolState.Anger),    "Sadness_ToAnger" },
+        { (IdolState.Sadness, IdolState.Fear),     "Sadness_ToFear" },
+        { (IdolState.Sadness, IdolState.Joy),      "Sadness_ToJoy" },
+        { (IdolState.Sadness, IdolState.Shock),    "Sadness_ToShock" },
+
+        // From Shock
+        { (IdolState.Shock, IdolState.Peaceful),   "Shock_ToPeaceful" },
+        { (IdolState.Shock, IdolState.Anger),      "Shock_ToAnger" },
+        { (IdolState.Shock, IdolState.Fear),       "Shock_ToFear" },
+        { (IdolState.Shock, IdolState.Joy),        "Shock_ToJoy" },
+        { (IdolState.Shock, IdolState.Sadness),    "Shock_ToSadness" },
     };
 
     private static int StateToInt(IdolState state) => state switch
@@ -92,7 +119,7 @@ public class IdolController : MonoBehaviour
         _animator.SetInteger("FromState", 1);
         _animator.SetInteger("ToState", 0);
         yield return null;
-        yield return new WaitForSeconds(GetClipLength("ClosedEyes_ToPeaceful"));
+        yield return new WaitForSeconds(GetClipLength("Peaceful_ToClosedEyes"));
 
         // Step 2: ClosedEyes → Destroy animation
         _animator.SetInteger("FromState", 0);
@@ -101,7 +128,6 @@ public class IdolController : MonoBehaviour
         yield return new WaitForSeconds(GetClipLength("ClosedEyes_Destroy"));
 
         GameEvents.TriggerShowWinScreen();
-        Debug.Log("[Idol] Setting inactive NOW");
         gameObject.SetActive(false);
     }
 
@@ -128,7 +154,6 @@ public class IdolController : MonoBehaviour
         _destroyed = false;
         StopStateLoop();
         StopTransition();
-        Debug.Log("[Idol] ResetToClosedEyes — setting active");
         gameObject.SetActive(true);
         _animator.SetInteger("FromState", 0);
         _animator.SetInteger("ToState", 0);
@@ -202,56 +227,11 @@ public class IdolController : MonoBehaviour
         }
         else
         {
-            IdolState from = _currentState;
-
-            // Leg 1: get to Peaceful
-            if (from != IdolState.Peaceful)
-            {
-                if (_clips.TryGetValue((from, IdolState.Peaceful), out string leg1))
-                {
-                    yield return StartCoroutine(PlayClip(from, IdolState.Peaceful, leg1));
-                }
-                else
-                {
-                    // Snap to Peaceful instantly
-                    _currentState = IdolState.Peaceful;
-                    _animator.Play("Peaceful_Idle", 0, 0f);
-                    _animator.SetInteger("FromState", 1);
-                    _animator.SetInteger("ToState", 1);
-                    yield return null;
-                    yield return null;
-                }
-            }
-
-            // Leg 2: Peaceful to target
-            if (_clips.TryGetValue((IdolState.Peaceful, newState), out string leg2))
-            {
-                yield return StartCoroutine(PlayClip(IdolState.Peaceful, newState, leg2));
-            }
-            else
-            {
-                IdolState[] bridges = { IdolState.Anger, IdolState.Joy, IdolState.Shock, IdolState.Sadness };
-                bool bridged = false;
-
-                foreach (var bridge in bridges)
-                {
-                    if (_clips.TryGetValue((IdolState.Peaceful, bridge), out string tooBridge) &&
-                        _clips.TryGetValue((bridge, newState), out string bridgeToTarget))
-                    {
-                        yield return StartCoroutine(PlayClip(IdolState.Peaceful, bridge, tooBridge));
-                        yield return StartCoroutine(PlayClip(bridge, newState, bridgeToTarget));
-                        bridged = true;
-                        break;
-                    }
-                }
-
-                if (!bridged)
-                {
-                    _currentState = newState;
-                    _animator.SetInteger("FromState", StateToInt(newState));
-                    _animator.SetInteger("ToState", StateToInt(newState));
-                }
-            }
+            Debug.LogWarning($"[Idol] No clip for {_currentState} → {newState}, snapping.");
+            _currentState = newState;
+            _animator.SetInteger("FromState", StateToInt(newState));
+            _animator.SetInteger("ToState", StateToInt(newState));
+            yield return null;
         }
 
         if (notifySystems)
