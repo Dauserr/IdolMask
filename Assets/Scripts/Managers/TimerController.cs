@@ -65,5 +65,6 @@ public class TimerController : MonoBehaviour
     private void StopTimer()
     {
         _isRunning = false;
+        _timeRemaining = _config.gameDuration;
     }
 }

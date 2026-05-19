@@ -14,6 +14,10 @@ public class InputManager : MonoBehaviour
     private bool       _isSwiping;
     private Vector2Int _bufferedDirection;
     private bool       _hasBufferedInput;
+    private float _holdDelay = 0.2f;     // seconds before repeat starts
+    private float _holdInterval => _config.playerMoveSpeed;
+    private Vector2Int _heldDirection = Vector2Int.zero;
+    private float _nextMoveTime = 0f;
 
     // input is always enabled before the game starts (player must walk to the mask)
     // and disabled only after the game ends
@@ -58,10 +62,51 @@ public class InputManager : MonoBehaviour
         var kb = Keyboard.current;
         if (kb == null) return;
 
-        if      (kb.wKey.wasPressedThisFrame || kb.upArrowKey.wasPressedThisFrame)    BufferOrMove(GridDirection.Up);
-        else if (kb.sKey.wasPressedThisFrame || kb.downArrowKey.wasPressedThisFrame)  BufferOrMove(GridDirection.Down);
-        else if (kb.aKey.wasPressedThisFrame || kb.leftArrowKey.wasPressedThisFrame)  BufferOrMove(GridDirection.Left);
-        else if (kb.dKey.wasPressedThisFrame || kb.rightArrowKey.wasPressedThisFrame) BufferOrMove(GridDirection.Right);
+        // Check if E is held for super jump
+        bool superJumpHeld = kb.eKey.isPressed;
+
+        Vector2Int dir = Vector2Int.zero;
+
+        if (kb.wKey.isPressed || kb.upArrowKey.isPressed)         dir = GridDirection.Up;
+        else if (kb.sKey.isPressed || kb.downArrowKey.isPressed)  dir = GridDirection.Down;
+        else if (kb.aKey.isPressed || kb.leftArrowKey.isPressed)  dir = GridDirection.Left;
+        else if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) dir = GridDirection.Right;
+
+        if (dir == Vector2Int.zero)
+        {
+            _heldDirection = Vector2Int.zero;
+            _nextMoveTime = 0f;
+            return;
+        }
+
+        // E is held — super jump instead of normal move, no repeat on hold
+        if (superJumpHeld)
+        {
+            // Only trigger once per fresh keypress, not on hold repeat
+            // We detect "fresh press" by checking if direction just changed
+            if (dir != _heldDirection)
+            {
+                _heldDirection = dir;
+                _nextMoveTime = Time.time + _holdDelay;
+                _playerController.TrySuperJump(dir); // direct call, no buffer needed
+            }
+            return; // skip normal move logic entirely
+        }
+
+        // Normal movement below — unchanged from original
+        if (dir != _heldDirection)
+        {
+            _heldDirection = dir;
+            _nextMoveTime = Time.time + _holdDelay;
+            BufferOrMove(dir);
+            return;
+        }
+
+        if (Time.time >= _nextMoveTime)
+        {
+            _nextMoveTime = Time.time + _holdInterval;
+            BufferOrMove(dir);
+        }
     }
 
     private void HandleTouch()

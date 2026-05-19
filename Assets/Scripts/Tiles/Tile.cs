@@ -25,7 +25,6 @@ public class Tile : MonoBehaviour
 
     public void Initialize(TrapConfig config) => _config = config;
 
-    // ── Public API ───────────────────────────────────────────────
 
     public void StartCrack()
     {
@@ -48,25 +47,16 @@ public class Tile : MonoBehaviour
         _currentCoroutine = StartCoroutine(RespawnRoutine());
     }
 
-    /// <summary>
-    /// Instantly snaps tile back to Normal — no animation wait.
-    /// Used on trap transitions so broken tiles never bleed into the next trap.
-    /// </summary>
     public void ForceReset()
     {
         StopCurrentCoroutine();
         _state = TileState.Normal;
-        // ResetTrigger clears any queued triggers so the animator doesn't
-        // fire them on the next frame after Play() resets the state machine.
         _animator.ResetTrigger(AnimCrack);
         _animator.ResetTrigger(AnimDestroy);
         _animator.ResetTrigger(AnimRespawn);
-        // Play() forces an immediate state jump — more reliable than SetTrigger
-        // which relies on a transition existing in the Animator Controller.
         _animator.Play(AnimNormal, 0, 0f);
     }
 
-    // ── Coroutines ───────────────────────────────────────────────
 
     private IEnumerator CrackRoutine()
     {

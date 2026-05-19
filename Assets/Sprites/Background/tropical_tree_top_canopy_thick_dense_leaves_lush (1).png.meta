@@ -1,0 +1,535 @@
+fileFormatVersion: 2
+guid: 42ffeaa11e9e4fc4d97ba8abdc383d63
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8088114441964944599
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_0
+  - first:
+      213: -7636178471836172598
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_1
+  - first:
+      213: -7438864332269587949
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_2
+  - first:
+      213: -1002727897238385112
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_3
+  - first:
+      213: -2177575593541765469
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_4
+  - first:
+      213: 7313374148343421537
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_5
+  - first:
+      213: 6590323233902583592
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_6
+  - first:
+      213: 2007755057309342709
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_7
+  - first:
+      213: 5374847904918198137
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_8
+  - first:
+      213: 2410105416103949226
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_9
+  - first:
+      213: 1508026823475984809
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_10
+  - first:
+      213: 6307367736229335554
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_11
+  - first:
+      213: -8617086892240445243
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_12
+  - first:
+      213: -1049454217962403616
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_13
+  - first:
+      213: -2930140979679124833
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_14
+  - first:
+      213: 561961820065180124
+    second: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dcf6087b31ce3070800000000000000
+      internalID: 8088114441964944599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ace38b85328d60690800000000000000
+      internalID: -7636178471836172598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_2
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3127fb67d48d3c890800000000000000
+      internalID: -7438864332269587949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 99
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82e4bb64a489512f0800000000000000
+      internalID: -1002727897238385112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a6f163f882b7c1e0800000000000000
+      internalID: -2177575593541765469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_5
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16ad88d3a035e7560800000000000000
+      internalID: 7313374148343421537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_6
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82f54cf6018857b50800000000000000
+      internalID: 6590323233902583592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_7
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 66
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fbdaea469afcdb10800000000000000
+      internalID: 2007755057309342709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 977d66e31bb479a40800000000000000
+      internalID: 5374847904918198137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_9
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa3fe1e4b1a627120800000000000000
+      internalID: 2410105416103949226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_10
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a9fb05f7669de410800000000000000
+      internalID: 1508026823475984809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_11
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 33
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20295b9c985488750800000000000000
+      internalID: 6307367736229335554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c065557025f96880800000000000000
+      internalID: -8617086892240445243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_13
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e8c052f2f69f61f0800000000000000
+      internalID: -1049454217962403616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_14
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f922964bd4c0657d0800000000000000
+      internalID: -2930140979679124833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tropical_tree_top_canopy_thick_dense_leaves_lush (1)_15
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd921564c4d7cc700800000000000000
+      internalID: 561961820065180124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fafa05b01360bee49a3ea1e5389fc21d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_0: 8088114441964944599
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_1: -7636178471836172598
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_10: 1508026823475984809
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_11: 6307367736229335554
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_12: -8617086892240445243
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_13: -1049454217962403616
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_14: -2930140979679124833
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_15: 561961820065180124
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_2: -7438864332269587949
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_3: -1002727897238385112
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_4: -2177575593541765469
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_5: 7313374148343421537
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_6: 6590323233902583592
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_7: 2007755057309342709
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_8: 5374847904918198137
+      tropical_tree_top_canopy_thick_dense_leaves_lush (1)_9: 2410105416103949226
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
