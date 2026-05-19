@@ -7,15 +7,15 @@ public class GameManager : MonoBehaviour
 
     private enum GameState { WaitingForPickup, Playing, Won, Lost }
 
-    [SerializeField] private Arena            _arena;
-    [SerializeField] private PlayerController _player;
-    [SerializeField] private TrapConfig       _config;
-    [SerializeField] private HintUI           _hintUI;
+    [SerializeField] private Arena arena;
+    [SerializeField] private PlayerController player;
+    [SerializeField] private TrapConfig config;
+    [SerializeField] private HintUI hintUI;
+    [SerializeField] private Vector2Int maskGridPosition = new Vector2Int(7, 7);
+    [SerializeField] private Vector2Int playerStartPosition = new Vector2Int(0, 7);
 
-    [SerializeField] private Vector2Int _maskGridPosition    = new(7, 7);
-    [SerializeField] private Vector2Int _playerStartPosition = new(0, 7);
-
-    private GameState _state = GameState.WaitingForPickup;
+    private GameState state = GameState.WaitingForPickup;
+    private bool _firstMoveDone = false;
 
     private void Awake()
     {
@@ -25,75 +25,78 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _player.SetStartPosition(_playerStartPosition);
-        GameEvents.OnPlayerMoved   += OnPlayerMoved;
+        StartCoroutine(InitAfterGrid());
+        GameEvents.OnPlayerMoved += OnPlayerMoved;
         GameEvents.OnAllHeartsLost += OnAllHeartsLost;
-        GameEvents.OnTimerEnded    += OnTimerEnded;
+        GameEvents.OnTimerEnded += OnTimerEnded;
     }
 
+    private IEnumerator InitAfterGrid()
+    {
+        yield return null; // wait one frame for TileGrid to build
+        player.SetStartPosition(playerStartPosition);
+    }
     private void OnDestroy()
     {
-        GameEvents.OnPlayerMoved   -= OnPlayerMoved;
+        GameEvents.OnPlayerMoved -= OnPlayerMoved;
         GameEvents.OnAllHeartsLost -= OnAllHeartsLost;
-        GameEvents.OnTimerEnded    -= OnTimerEnded;
+        GameEvents.OnTimerEnded -= OnTimerEnded;
     }
 
     private void OnPlayerMoved(Vector2Int position)
     {
-        if (_state != GameState.WaitingForPickup) return;
-        if (position == _maskGridPosition)
-            StartGame();
+        if (!_firstMoveDone)
+        {
+            _firstMoveDone = true;
+            GameEvents.TriggerPlayerFirstMoved();
+        }
+
+        if (state != GameState.WaitingForPickup) return;
+        if (position == maskGridPosition) StartGame();
     }
 
     private void StartGame()
     {
-        _state = GameState.Playing;
-        _arena.StartGame();
+        state = GameState.Playing;
+        arena.StartGame();
         GameEvents.TriggerGameStarted();
     }
 
     private void OnAllHeartsLost()
     {
-        if (_state != GameState.Playing) return;
-        _state = GameState.Lost;
-
-        // save the record BEFORE firing OnGameLost so LoseScreenUI
-        // always reads the freshly saved entry
+        if (state != GameState.Playing) return;
+        state = GameState.Lost;
         SaveManager.Instance?.SaveRecord(
-            TimerController.Instance != null ? TimerController.Instance.ElapsedTime : 0f
-        );
-
-        _arena.DestroyAllTiles();
+            TimerController.Instance != null ? TimerController.Instance.ElapsedTime : 0f);
+        arena.DestroyAllTiles();
         GameEvents.TriggerGameLost();
     }
 
     private void OnTimerEnded()
     {
-        if (_state != GameState.Playing) return;
-        _state = GameState.Won;
-        _arena.OpenDoor();
+        if (state != GameState.Playing) return;
+        state = GameState.Won;
         GameEvents.TriggerGameWon();
+        StartCoroutine(WinSequence());
     }
 
-    /// <summary>
-    /// Resets the whole game in-place without reloading the scene.
-    /// Called by LoseScreenUI and WinScreenUI try/play-again buttons.
-    /// </summary>
+    private IEnumerator WinSequence()
+    {
+        // Wait for idol to reach Peaceful (handled by StopAndPeaceful via TriggerGameWon)
+        float peacefulClipLength = 1f; // match your longest transition clip
+        yield return new WaitForSeconds(peacefulClipLength + 0.2f);
+
+        // Now trigger close eyes
+        GameEvents.TriggerIdolDestroyed();
+    }
+
     public void RestartGame()
     {
-        _state = GameState.WaitingForPickup;
-
-        // reset player to start
-        _player.SetStartPosition(_playerStartPosition);
-
-        // re-show the golden mask on its pedestal
-        _arena.ResetForNewGame();
-
-        // notify all systems — HeartSystem resets hearts,
-        // Arena respawns tiles, TimerController stops its countdown
+        state = GameState.WaitingForPickup;
+        _firstMoveDone = false;
+        arena.ResetForNewGame();
         GameEvents.TriggerGameRestarted();
-
-        // show the walk hint again
-        _hintUI?.ResetHint();
+        hintUI?.ResetHint();
+        StartCoroutine(InitAfterGrid()); // wait one frame for TileGrid to build
     }
 }

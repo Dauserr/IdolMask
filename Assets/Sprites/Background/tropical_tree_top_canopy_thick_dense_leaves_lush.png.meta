@@ -96,7 +96,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -149,11 +149,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 98
-        width: 33
-        height: 33
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,12 +170,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 65
-        width: 33
-        height: 34
+        x: 33
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -192,12 +192,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 98
-        width: 34
-        height: 33
+        x: 66
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -214,12 +214,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 65
-        width: 34
-        height: 34
+        x: 99
+        y: 99
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -236,12 +236,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_4
       rect:
         serializedVersion: 2
-        x: 65
-        y: 98
-        width: 34
-        height: 33
+        x: 0
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -258,12 +258,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_5
       rect:
         serializedVersion: 2
-        x: 65
-        y: 65
-        width: 34
-        height: 34
+        x: 33
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -280,12 +280,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_6
       rect:
         serializedVersion: 2
-        x: 98
-        y: 98
-        width: 33
-        height: 33
+        x: 66
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -302,12 +302,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_7
       rect:
         serializedVersion: 2
-        x: 98
-        y: 65
-        width: 33
-        height: 34
+        x: 99
+        y: 66
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -325,11 +325,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 33
-        height: 34
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -346,12 +346,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 33
-        height: 33
+        x: 33
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -368,12 +368,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_10
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 34
-        height: 34
+        x: 66
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -390,12 +390,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_11
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 34
-        height: 33
+        x: 99
+        y: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -412,12 +412,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_12
       rect:
         serializedVersion: 2
-        x: 65
-        y: 32
-        width: 34
-        height: 34
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -434,12 +434,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_13
       rect:
         serializedVersion: 2
-        x: 65
+        x: 33
         y: 0
-        width: 34
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -456,12 +456,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_14
       rect:
         serializedVersion: 2
-        x: 98
-        y: 32
-        width: 33
-        height: 34
+        x: 66
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -478,12 +478,12 @@ TextureImporter:
       name: tropical_tree_top_canopy_thick_dense_leaves_lush_15
       rect:
         serializedVersion: 2
-        x: 98
+        x: 99
         y: 0
-        width: 33
-        height: 33
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -500,7 +500,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9d5fb071f5e872147985e6823393d9e2
     internalID: 0
     vertices: []
     indices: 
@@ -508,7 +508,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       tropical_tree_top_canopy_thick_dense_leaves_lush_0: 3937225609933436322
       tropical_tree_top_canopy_thick_dense_leaves_lush_1: -2443929059092639975

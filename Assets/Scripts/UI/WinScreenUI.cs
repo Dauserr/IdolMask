@@ -23,8 +23,8 @@ public class WinScreenUI : MonoBehaviour
         _canvasGroup.blocksRaycasts = false;
     }
 
-    private void OnEnable()  => GameEvents.OnGameWon += Show;
-    private void OnDisable() => GameEvents.OnGameWon -= Show;
+    private void OnEnable()  => GameEvents.OnShowWinScreen += Show;
+    private void OnDisable() => GameEvents.OnShowWinScreen -= Show;
 
     private void Start() => _playAgainButton.onClick.AddListener(OnPlayAgain);
 
