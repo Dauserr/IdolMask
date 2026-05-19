@@ -62,6 +62,9 @@ public class InputManager : MonoBehaviour
         var kb = Keyboard.current;
         if (kb == null) return;
 
+        // Check if E is held for super jump
+        bool superJumpHeld = kb.eKey.isPressed;
+
         Vector2Int dir = Vector2Int.zero;
 
         if (kb.wKey.isPressed || kb.upArrowKey.isPressed)         dir = GridDirection.Up;
@@ -76,7 +79,21 @@ public class InputManager : MonoBehaviour
             return;
         }
 
-        // new key pressed — move immediately
+        // E is held — super jump instead of normal move, no repeat on hold
+        if (superJumpHeld)
+        {
+            // Only trigger once per fresh keypress, not on hold repeat
+            // We detect "fresh press" by checking if direction just changed
+            if (dir != _heldDirection)
+            {
+                _heldDirection = dir;
+                _nextMoveTime = Time.time + _holdDelay;
+                _playerController.TrySuperJump(dir); // direct call, no buffer needed
+            }
+            return; // skip normal move logic entirely
+        }
+
+        // Normal movement below — unchanged from original
         if (dir != _heldDirection)
         {
             _heldDirection = dir;
@@ -85,7 +102,6 @@ public class InputManager : MonoBehaviour
             return;
         }
 
-        // same key held — repeat after delay
         if (Time.time >= _nextMoveTime)
         {
             _nextMoveTime = Time.time + _holdInterval;
