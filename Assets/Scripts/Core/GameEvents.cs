@@ -3,31 +3,31 @@ using UnityEngine;
 
 public static class GameEvents
 {
-    // ── Game Flow ────────────────────────────────────────────────
+    // ── Game Flow 
     public static event Action OnGameStarted;
     public static event Action OnGameWon;
     public static event Action OnGameLost;
     public static event Action OnGameRestarted;
 
-    // ── Player ───────────────────────────────────────────────────
+    // ── Player 
     public static event Action<Vector2Int> OnPlayerMoved;
     public static event Action             OnPlayerFell;
 
-    // ── Hearts ───────────────────────────────────────────────────
+    // ── Hearts 
     public static event Action<int> OnHeartLost;
     public static event Action      OnAllHeartsLost;
 
-    // ── Idol / Traps ─────────────────────────────────────────────
+    // ── Idol / Traps 
     public static event Action<IdolState> OnIdolStateChanged;
 
-    // ── Timer ────────────────────────────────────────────────────
+    // ── Timer 
     public static event Action<float> OnTimerTick;
     public static event Action        OnTimerEnded;
 
-    // ── Save ─────────────────────────────────────────────────────
+    // ── Save 
     public static event Action OnRecordSaved;
 
-    // ── Triggers ─────────────────────────────────────────────────
+    // ── Triggers 
     public static void TriggerGameStarted()                     => OnGameStarted?.Invoke();
     public static void TriggerGameWon()                         => OnGameWon?.Invoke();
     public static void TriggerGameLost()                        => OnGameLost?.Invoke();
@@ -40,4 +40,13 @@ public static class GameEvents
     public static void TriggerTimerTick(float normalized)       => OnTimerTick?.Invoke(normalized);
     public static void TriggerTimerEnded()                      => OnTimerEnded?.Invoke();
     public static void TriggerRecordSaved()                     => OnRecordSaved?.Invoke();
+
+    public static event Action OnPlayerFirstMoved;
+    public static void TriggerPlayerFirstMoved() => OnPlayerFirstMoved?.Invoke();
+
+    public static event System.Action OnIdolDestroyed;
+    public static void TriggerIdolDestroyed() => OnIdolDestroyed?.Invoke();
+
+    public static event System.Action OnShowWinScreen;
+    public static void TriggerShowWinScreen() => OnShowWinScreen?.Invoke();
 }
