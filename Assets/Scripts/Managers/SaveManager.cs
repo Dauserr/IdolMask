@@ -19,8 +19,6 @@ public class SaveManager : MonoBehaviour
         LoadRecords();
     }
 
-    /// Called by GameManager right before TriggerGameLost so the
-    /// record is always in the list when LoseScreenUI reads it.
     public void SaveRecord(float elapsedTime)
     {
         int nextAttempt = _records.Count + 1;

@@ -67,10 +67,7 @@ public class Arena : MonoBehaviour
                 tile.ForceReset();
     }
 
-    /// <summary>
-    /// Resets the arena for a new run — respawns tiles, shows mask, opens door.
-    /// Pedestal stays down (no Raise animation needed).
-    /// </summary>
+
     public void ResetForNewGame()
     {
         ForceRespawnAll();

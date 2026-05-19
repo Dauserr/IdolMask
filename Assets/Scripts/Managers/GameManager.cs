@@ -76,24 +76,30 @@ public class GameManager : MonoBehaviour
     {
         if (state != GameState.Playing) return;
         state = GameState.Won;
+
+        SaveManager.Instance?.SaveRecord(
+            TimerController.Instance != null ? TimerController.Instance.ElapsedTime : 0f);
+
         GameEvents.TriggerGameWon();
         StartCoroutine(WinSequence());
     }
 
     private IEnumerator WinSequence()
     {
-        // Wait for idol to reach Peaceful (handled by StopAndPeaceful via TriggerGameWon)
-        float peacefulClipLength = 1f; // match your longest transition clip
+        Debug.Log("[Win] WinSequence started");
+        float peacefulClipLength = 1f;
         yield return new WaitForSeconds(peacefulClipLength + 0.2f);
-
-        // Now trigger close eyes
+        Debug.Log("[Win] Firing TriggerIdolDestroyed");
         GameEvents.TriggerIdolDestroyed();
     }
 
     public void RestartGame()
     {
+        Debug.Log("[Game] RestartGame — stopping coroutines");
+        StopAllCoroutines();
         state = GameState.WaitingForPickup;
         _firstMoveDone = false;
+        player.SetStartPosition(playerStartPosition);
         arena.ResetForNewGame();
         GameEvents.TriggerGameRestarted();
         hintUI?.ResetHint();

@@ -1,10 +1,6 @@
 using TMPro;
 using UnityEngine;
 
-/// <summary>
-/// Shows "Walk to the Mask" hint before game starts.
-/// Hides automatically when the game begins.
-/// </summary>
 public class HintUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _hintText;
