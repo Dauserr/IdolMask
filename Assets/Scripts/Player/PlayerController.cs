@@ -263,11 +263,30 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(0.8f);
 
-        // only respawn if the game is still running
         if (_isActive)
+        {
             RespawnAtSafeTile();
+            StartCoroutine(BlinkRoutine());
+        }
 
         _isMoving = false;
+    }
+
+    private IEnumerator BlinkRoutine()
+    {
+        var sr = GetComponent<SpriteRenderer>();
+        float blinkInterval = 0.1f;
+        float totalDuration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < totalDuration)
+        {
+            sr.enabled = !sr.enabled;
+            yield return new WaitForSeconds(blinkInterval);
+            elapsed += blinkInterval;
+        }
+
+        sr.enabled = true;
     }
 
     private void RespawnAtSafeTile()
