@@ -50,4 +50,13 @@ public static class GameEvents
     public static event System.Action OnShowWinScreen;
     public static void TriggerShowWinScreen() => OnShowWinScreen?.Invoke();
 
+    public static event Action<Vector2Int> OnBoulderSpawned;
+    public static event Action<Vector2Int> OnBoulderRemoved;
+
+    public static void TriggerBoulderSpawned(Vector2Int gridPos) => OnBoulderSpawned?.Invoke(gridPos);
+    public static void TriggerBoulderRemoved(Vector2Int gridPos) => OnBoulderRemoved?.Invoke(gridPos);
+
+    public static event Action OnPlayerRespawned;
+    public static void TriggerPlayerRespawned() => OnPlayerRespawned?.Invoke();
+
 }

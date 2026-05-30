@@ -11,6 +11,7 @@ public class IdolController : MonoBehaviour
     private Coroutine _stateRoutine;
     private Coroutine _transitionRoutine;
     private bool _destroyed = false;
+    private SpriteRenderer _spriteRenderer;
 
     public IdolState CurrentState => _currentState;
 
@@ -22,6 +23,7 @@ public class IdolController : MonoBehaviour
         { (IdolState.Peaceful, IdolState.Sadness), "Peaceful_ToSadness" },
         { (IdolState.Peaceful, IdolState.Shock),   "Peaceful_ToShock" },
         { (IdolState.Peaceful, IdolState.Fear),    "Peaceful_ToFear" },
+        { (IdolState.Peaceful, IdolState.Boulder), "Peaceful_ToBoulder" },
 
         // From Anger
         { (IdolState.Anger, IdolState.Peaceful),   "Anger_ToPeaceful" },
@@ -29,6 +31,7 @@ public class IdolController : MonoBehaviour
         { (IdolState.Anger, IdolState.Fear),       "Anger_ToFear" },
         { (IdolState.Anger, IdolState.Joy),        "Anger_ToJoy" },
         { (IdolState.Anger, IdolState.Shock),      "Anger_ToShock" },
+        { (IdolState.Anger, IdolState.Boulder), "Anger_ToBoulder"    },
 
         // From Fear
         { (IdolState.Fear, IdolState.Peaceful),    "Fear_ToPeaceful" },
@@ -36,6 +39,7 @@ public class IdolController : MonoBehaviour
         { (IdolState.Fear, IdolState.Joy),         "Fear_ToJoy" },
         { (IdolState.Fear, IdolState.Sadness),     "Fear_ToSadness" },
         { (IdolState.Fear, IdolState.Shock),       "Fear_ToShock" },
+        { (IdolState.Fear,     IdolState.Boulder), "Fear_ToBoulder"     },
 
         // From Joy
         { (IdolState.Joy, IdolState.Peaceful),     "Joy_ToPeaceful" },
@@ -43,6 +47,7 @@ public class IdolController : MonoBehaviour
         { (IdolState.Joy, IdolState.Fear),         "Joy_ToFear" },
         { (IdolState.Joy, IdolState.Sadness),      "Joy_ToSadness" },
         { (IdolState.Joy, IdolState.Shock),        "Joy_ToShock" },
+        { (IdolState.Joy, IdolState.Boulder), "Joy_ToBoulder"      },
 
         // From Sadness
         { (IdolState.Sadness, IdolState.Peaceful), "Sadness_ToPeaceful" },
@@ -50,6 +55,7 @@ public class IdolController : MonoBehaviour
         { (IdolState.Sadness, IdolState.Fear),     "Sadness_ToFear" },
         { (IdolState.Sadness, IdolState.Joy),      "Sadness_ToJoy" },
         { (IdolState.Sadness, IdolState.Shock),    "Sadness_ToShock" },
+        { (IdolState.Sadness, IdolState.Boulder), "Sadness_ToBoulder"  },
 
         // From Shock
         { (IdolState.Shock, IdolState.Peaceful),   "Shock_ToPeaceful" },
@@ -57,6 +63,26 @@ public class IdolController : MonoBehaviour
         { (IdolState.Shock, IdolState.Fear),       "Shock_ToFear" },
         { (IdolState.Shock, IdolState.Joy),        "Shock_ToJoy" },
         { (IdolState.Shock, IdolState.Sadness),    "Shock_ToSadness" },
+        { (IdolState.Shock, IdolState.Boulder), "Shock_ToBoulder"    },
+
+        // From Boulder
+        { (IdolState.Boulder, IdolState.Peaceful), "Boulder_ToPeaceful" },
+        { (IdolState.Boulder, IdolState.Anger),    "Boulder_ToAnger"    },
+        { (IdolState.Boulder, IdolState.Fear),     "Boulder_ToFear"     },
+        { (IdolState.Boulder, IdolState.Joy),      "Boulder_ToJoy"      },
+        { (IdolState.Boulder, IdolState.Sadness),  "Boulder_ToSadness"  },
+        { (IdolState.Boulder, IdolState.Shock),    "Boulder_ToShock"    },
+    };
+
+    private static readonly Dictionary<IdolState, Color> _stateColors = new()
+    {
+        { IdolState.Peaceful, new Color(0.9f, 0.9f, 0.8f) },  // warm stone white
+        { IdolState.Anger,    new Color(1.0f, 0.2f, 0.1f) },  // red
+        { IdolState.Joy,      new Color(1.0f, 0.9f, 0.1f) },  // golden yellow
+        { IdolState.Sadness,  new Color(0.3f, 0.5f, 1.0f) },  // blue
+        { IdolState.Fear,     new Color(0.5f, 0.2f, 0.7f) },  // purple
+        { IdolState.Shock,    new Color(0.2f, 1.0f, 0.8f) },  // cyan
+        { IdolState.Boulder,  new Color(0.5f, 0.4f, 0.3f) },  // stone brown
     };
 
     private static int StateToInt(IdolState state) => state switch
@@ -67,6 +93,7 @@ public class IdolController : MonoBehaviour
         IdolState.Joy      => 4,
         IdolState.Sadness  => 5,
         IdolState.Shock    => 6,
+        IdolState.Boulder  => 7,
         _                  => 1
     };
 
@@ -80,6 +107,7 @@ public class IdolController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         GameEvents.OnPlayerFirstMoved += OpenEyes;
         GameEvents.OnGameStarted      += StartStateLoop;
         GameEvents.OnGameWon          += StopAndPeaceful;
@@ -190,7 +218,18 @@ public class IdolController : MonoBehaviour
         SetState(next, true);
     }
 
-    private IdolState GetRandomTrapState() => (IdolState)Random.Range(1, 6);
+    private IdolState GetRandomTrapState()
+    {
+        IdolState[] trapStates = {
+            IdolState.Anger,
+            IdolState.Fear,
+            IdolState.Joy,
+            IdolState.Sadness,
+            IdolState.Shock,
+            IdolState.Boulder
+        };
+        return trapStates[Random.Range(0, trapStates.Length)];
+    }
 
     private void StopAndPeaceful()
     {
@@ -241,14 +280,37 @@ public class IdolController : MonoBehaviour
     private IEnumerator PlayClip(IdolState from, IdolState to, string clipName)
     {
         _animator.SetInteger("FromState", StateToInt(from));
-        _animator.SetInteger("ToState", StateToInt(to));
-
+        _animator.SetInteger("ToState",   StateToInt(to));
+    
         yield return null;
-        yield return new WaitForSeconds(GetClipLength(clipName));
-
+    
+        float clipLength = GetClipLength(clipName);
+        float elapsed    = 0f;
+    
+        Color fromColor = _stateColors.TryGetValue(from, out var fc) ? fc : Color.white;
+        Color toColor   = _stateColors.TryGetValue(to,   out var tc) ? tc : Color.white;
+    
+        while (elapsed < clipLength)
+        {
+            float t = elapsed / clipLength;
+    
+            Color midColor = Color.Lerp(fromColor, Color.grey, Mathf.Sin(t * Mathf.PI));
+            Color tint     = Color.Lerp(midColor, toColor, t);
+    
+            if (_spriteRenderer != null)
+                _spriteRenderer.color = tint;
+    
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    
+        // Snap to final color
+        if (_spriteRenderer != null)
+            _spriteRenderer.color = toColor;
+    
         _currentState = to;
         _animator.SetInteger("FromState", StateToInt(to));
-        _animator.SetInteger("ToState", StateToInt(to));
+        _animator.SetInteger("ToState",   StateToInt(to));
         yield return null;
     }
 }

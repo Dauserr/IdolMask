@@ -8,12 +8,15 @@ public static class TileGrid
     private static Tile[,]  _grid;
     private static Vector3  _origin;     // world position of tile [0,0]
     private static float    _tileSize;   // world units per tile
+    private static readonly HashSet<Vector2Int> _blockedPositions = new();
+
 
     public static void Initialize(Tile[,] tiles, Vector3 origin, float tileSize)
     {
         _grid     = tiles;
         _origin   = origin;
         _tileSize = tileSize;
+        _blockedPositions.Clear();
     }
 
     public static Tile GetTile(int row, int col)
@@ -80,4 +83,16 @@ public static class TileGrid
     }
 
     public static bool IsInBounds(Vector2Int pos) => IsInBounds(pos.x, pos.y);
+
+    public static void SetBlocked(Vector2Int pos, bool blocked)
+    {
+        if (blocked)
+            _blockedPositions.Add(pos);
+        else
+            _blockedPositions.Remove(pos);
+    }
+    
+    public static bool IsBlocked(Vector2Int pos) => _blockedPositions.Contains(pos);
+    
+    public static void ClearBlocked() => _blockedPositions.Clear();
 }

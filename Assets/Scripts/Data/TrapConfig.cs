@@ -34,6 +34,12 @@ public class TrapConfig : ScriptableObject
     [SerializeField] public float shockStarDelay = 0.8f;
     [SerializeField] public float shockMaxArenaPercent = 0.4f;
 
+    [Header("Boulder Trap")]
+    [SerializeField] public int boulderCount = 6;
+    [SerializeField] public int boulderSafeRadius = 2;
+    [SerializeField] public float boulderLifetime = 20f;
+    [SerializeField] public float boulderSpawnDelay = 0.2f;
+
     [Header("Game Settings")]
     [SerializeField] public float gameDuration = 120f;
     [SerializeField] public float idolStateChangeIntervalMin = 8f;
@@ -43,4 +49,5 @@ public class TrapConfig : ScriptableObject
 
     [Header("Input")]
     [SerializeField] public float swipeMinDistance = 50f;
+
 }

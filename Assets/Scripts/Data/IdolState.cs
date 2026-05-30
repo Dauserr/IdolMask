@@ -5,5 +5,6 @@ public enum IdolState
     Joy,
     Sadness,
     Fear,
-    Shock
+    Shock,
+    Boulder   
 }

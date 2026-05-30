@@ -8,6 +8,7 @@ public class Arena : MonoBehaviour
     [SerializeField] private GameObject _goldenMask;
     [SerializeField] private float      _tileSize = 1f;
     [SerializeField] private TrapConfig _config;
+    [SerializeField] private BoulderTrap _boulderTrap;
 
     private static readonly int AnimClose = Animator.StringToHash("Close");
     private static readonly int AnimOpen  = Animator.StringToHash("Open");
@@ -71,13 +72,17 @@ public class Arena : MonoBehaviour
     public void ResetForNewGame()
     {
         ForceRespawnAll();
-
+    
+        _boulderTrap?.ForceCleanup();
+        TileGrid.ClearBlocked();
+    
         if (_goldenMask != null)
             _goldenMask.SetActive(true);
-
+    
         if (_doorAnimator != null)
             _doorAnimator.SetTrigger(AnimOpen);
     }
+
 
     public void StartGame()
     {

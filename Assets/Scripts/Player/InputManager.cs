@@ -36,6 +36,7 @@ public class InputManager : MonoBehaviour
         GameEvents.OnGameLost    += DisableInput;
         GameEvents.OnGameStarted   += EnableInput;
         GameEvents.OnGameRestarted += EnableInput;
+        GameEvents.OnPlayerRespawned    += ClearBuffer;
     }
 
     private void OnDisable()
@@ -44,6 +45,7 @@ public class InputManager : MonoBehaviour
         GameEvents.OnGameLost    -= DisableInput;
         GameEvents.OnGameStarted   -= EnableInput;
         GameEvents.OnGameRestarted -= EnableInput;
+        GameEvents.OnPlayerRespawned    -= ClearBuffer;
     }
 
     private void EnableInput()  => _isInputEnabled = true;
@@ -55,6 +57,14 @@ public class InputManager : MonoBehaviour
         HandleKeyboard();
         HandleTouch();
         FlushBuffer();
+    }
+
+    private void ClearBuffer()
+    {
+        _bufferedDirection = Vector2Int.zero;
+        _hasBufferedInput  = false;
+        _heldDirection     = Vector2Int.zero;
+        _nextMoveTime      = 0f;              
     }
 
     private void HandleKeyboard()

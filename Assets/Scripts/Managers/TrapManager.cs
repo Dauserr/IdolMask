@@ -10,6 +10,7 @@ public class TrapManager : MonoBehaviour
     [SerializeField] private SadnessTrap _sadnessTrap;
     [SerializeField] private FearTrap    _fearTrap;
     [SerializeField] private ShockTrap   _shockTrap;
+    [SerializeField] private BoulderTrap _boulderTrap;
 
     private IdolState _currentState    = IdolState.Peaceful;
     private float     _speedMultiplier = 1f;
@@ -96,6 +97,9 @@ public class TrapManager : MonoBehaviour
             case IdolState.Shock:
                 _shockTrap?.Activate(playerPos, _config, _speedMultiplier);
                 break;
+            case IdolState.Boulder:
+                _boulderTrap?.Activate(playerPos, _config, _speedMultiplier);
+                break;
         }
     }
 
@@ -108,6 +112,7 @@ public class TrapManager : MonoBehaviour
             case IdolState.Sadness: _sadnessTrap?.Deactivate(); break;
             case IdolState.Fear:    _fearTrap?.Deactivate();    break;
             case IdolState.Shock:   _shockTrap?.Deactivate();   break;
+            case IdolState.Boulder: _boulderTrap?.Deactivate(); break;
         }
     }
 }

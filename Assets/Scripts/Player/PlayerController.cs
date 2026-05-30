@@ -81,13 +81,15 @@ public class PlayerController : MonoBehaviour
 
         var tile = TileGrid.GetTile(destination);
         if (tile == null) return;
-
+        
+        if (TileGrid.IsBlocked(destination)) return;
+        
         if (!tile.IsWalkable)
         {
             StartCoroutine(FallRoutine(_gridPosition));
             return;
         }
-
+        
         StartCoroutine(MoveRoutine(destination, direction));
     }
 
@@ -111,16 +113,16 @@ public class PlayerController : MonoBehaviour
 
         var tile = TileGrid.GetTile(destination);
         if (tile == null) return;
-
-        // If landing tile is already destroyed (not walkable), player falls into it
-        // — same death behaviour as walking into a destroyed tile normally
+        
+        // NEW: super jump also cannot land on a boulder
+        if (TileGrid.IsBlocked(destination)) return;
+        
         if (!tile.IsWalkable)
         {
-            StartCoroutine(FallRoutine(destination)); // fall at destination, not current pos
+            StartCoroutine(FallRoutine(destination));
             return;
         }
-
-        // Everything is valid — start the jump
+        
         StartCoroutine(SuperJumpRoutine(destination, direction));
     }
 
@@ -265,6 +267,7 @@ public class PlayerController : MonoBehaviour
 
         if (_isActive)
         {
+            GameEvents.TriggerPlayerRespawned();
             RespawnAtSafeTile();
             StartCoroutine(BlinkRoutine());
         }
